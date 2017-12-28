@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+{% extends "base.html"  %}
+
+{% load custom_markdown %}
+
+{% block content %}
+<div class="posts">
+{% if error %}
+    <h2 class="post-title"> NOT FOUNT </h2>
+{% else %}
+    {% for post in post_list %}
+    <section class="post">
+    <header class="post-header">
+        <h2 class="post-title">
+            <a href="{% url "content" id=post.id %} "> {{post.title }} </a>
+        </h2>
+            <p class="post-meta">
+                Time: <a class="post-author" href="#">{{ post.date_time}} </a>
+                <a class="post-category post-category-js" href="{% url "search_tag" tag=post.tag %}">
+                    {{ post.tag | title}}
+                </a>
+            </p>
+    </header>
+     <div class="post-description">
+         <p>
+             {{ post.content | custom_markdown }}
+         </p>
+     </div>
+    </section>
+{% endfor %}
+{% endif %}
+
+</div>
+{% endblock %}
